@@ -6,7 +6,7 @@ import pickle
 import numpy as np
 import pandas as pd
 import streamlit as st
-from _datetime import datetime
+from datetime import datetime
 
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
