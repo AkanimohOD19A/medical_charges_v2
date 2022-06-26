@@ -154,7 +154,7 @@ if st.checkbox("Yes"):
     elif os.path.exists(contrib_path):
         df.to_csv(csv_path, index=False)
         # - Update sheet
-        # update_sheet(client)
+        update_sheet(client)
     ## Download Copy
     with open(csv_path, "rb") as file:
         btn = st.download_button(
