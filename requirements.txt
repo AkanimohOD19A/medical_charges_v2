@@ -1,6 +1,6 @@
 gspread<=5.4.0
-numpy==1.18.5
+numpy<=1.19.2
 oauth2client<=4.1.3
-pandas<=1.2.0
+pandas<=1.4.2
 scikit_learn<=0.24.1
 streamlit==1.10.0
