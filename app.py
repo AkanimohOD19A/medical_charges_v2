@@ -45,17 +45,36 @@ def get_fvalue(val):
 ### Title
 html_temp = """
 <div>
-    <h1 style="color:#ddd; background-color:#c3c3c3;  text-align:center;
+    <!-- <h1 style="color:#ddd; background-color:#c3c3c3;  text-align:center;
     justify-content: center; align-items: center;">
         <strong>Insurance</strong>
-    </h1>
+    </h1> -->
     <h2 style="padding-top: 0px; text-align: center;">
-        Prediction of Medical Personnel Charges
+        PREDICTION OF MEDICAL PERSONNEL CHARGES
     <h2>
 </div>
 """
 
 st.markdown(html_temp, unsafe_allow_html=True)
+
+if st.checkbox("Information"):
+    html_support = """
+        <h5>
+            Please be informed that modeled datasets are in the public domain, sourced from 
+            <a href="https://github.com/stedy/Machine-Learning-with-R-datasets"> Machine Learning with R by Brett Lantz. </a> 
+            and contains simulated data, on the basis of demographic statistics from the US Census Bureau
+        </h5>
+        
+        <h5>
+            An end-to-end predictive web application that reinforces with each submission.
+            Enter the application form with the details that best describes you, and choose to contribute your data,
+            a copy would be generated for download.
+        </h5>
+        
+        <hr>
+    """
+
+    st.markdown(html_support, unsafe_allow_html=True)
 
 ### Dictionary/Labels
 sex_map = {'male': 1.0, 'female': 0.0}
@@ -115,9 +134,22 @@ df = pd.DataFrame(pretty_results)
 df['entry'] = entry_date
 df['name'] = name
 
+"""
+### Likelihood of Charges
+"""
+
+if st.button("Predict"):
+    '''
+    ## Results
+    '''
+    st.caption("Prediction Table")
+    st.table(prediction_table)
+    st.warning("[+-] From our model the Charge would a variance of (give or take) 3981.35")
+
+
 ### Explore
 st.subheader("Choose to share")
-if st.checkbox("Yes"):
+if st.checkbox("I Agree"):
     """
     ### Entered Values
     """
@@ -155,6 +187,7 @@ if st.checkbox("Yes"):
         df.to_csv(csv_path, index=False)
         # - Update sheet
         update_sheet(client)
+
     ## Download Copy
     with open(csv_path, "rb") as file:
         btn = st.download_button(
@@ -165,17 +198,8 @@ if st.checkbox("Yes"):
         )
         st.write('Thanks for contributing!')
 
-"""
-### Likelihood of Charges
-"""
-
-if st.button("Predict"):
-    '''
-    ## Results
-    '''
-    st.caption("Prediction Table")
-    st.table(prediction_table)
-    st.warning("[+-] From our model the Charge would a variance of (give or take) 3981.35")
 
 ## Explore
 st.sidebar.subheader("Explore")
+st.sidebar.write("Check out [PORTFOLIO](https://akanimohod19a.github.io/)")
+st.sidebar.write("Check out demo [APPS](https://heartfailurepredictor-afl.herokuapp.com/)")
