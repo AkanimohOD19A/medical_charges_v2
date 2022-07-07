@@ -183,10 +183,10 @@ if st.checkbox("I Agree"):
         df.to_csv(csv_path, index=False)
         # - Update sheet
         update_sheet(client)
-    # elif os.path.exists(contrib_path):
-    #     df.to_csv(csv_path, index=False)
-    #     # - Update sheet
-    #     update_sheet(client)
+    elif os.path.exists(contrib_path):
+        df.to_csv(csv_path, index=False)
+        # - Update sheet
+        update_sheet(client)
 
     ## Download Copy
     with open(csv_path, "rb") as file:
