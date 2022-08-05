@@ -97,7 +97,7 @@ st.markdown(html_temp, unsafe_allow_html=True)
 
 ## States
 app_mode = st.sidebar.selectbox('Application Mode',
-                                ['Home Page', 'Data Dashboard', 'Prediction Page']
+                                ['Home Page', 'Prediction Page', 'Data Dashboard']
                                 )
 if app_mode == 'Home Page':
     ## Create Page
