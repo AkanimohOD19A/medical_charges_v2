@@ -305,7 +305,7 @@ if app_mode == 'Data Dashboard':
         header=dict(values=list(data_table.columns),
                     #line_color='darkslategreen',
                     fill_color='lightskyblue',
-                    align='center'),
+                    align='left'),
         cells=dict(values=[list(data_table['age']),
                            list(data_table['sex']),
                            list(data_table['bmi']),
