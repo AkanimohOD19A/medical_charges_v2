@@ -250,6 +250,7 @@ if app_mode == 'Data Dashboard':
                   'region', 'charges', 'entry_date', 'user_id']
 
     retf_df.drop(columns=['entry_date', 'user_id'], inplace=True)
+    dash_df = retf_df.copy()
 
     ## Feature Engineering
 
@@ -295,7 +296,8 @@ if app_mode == 'Data Dashboard':
     insurance_charges['charges'] = insurance_charges['charges'].apply(lambda x : str(x) + ' ' + "insurance")
     labels = list(insurance_charges['charges'])
 
-    data_table = retf_df[['age', 'sex', 'bmi', 'children', 'smoker', 'region','charges']]
+    ## Dashboard-data
+    data_table = dash_df[['age', 'sex', 'bmi', 'children', 'smoker', 'region','charges']]
     data_table = data_table.sort_values(['age', 'sex', 'bmi', 'children', 'smoker', 'region','charges'],
                                         ascending=False)[:20]
 
@@ -315,7 +317,7 @@ if app_mode == 'Data Dashboard':
                    #                fill_color='lightcyan',
                    align=['left', 'center']))
     ])
-    fig3.update_layout(title="Top 20 ....",
+    fig3.update_layout(title="Top 20 Features",
                        title_x=0.5)
     st.plotly_chart(fig3)
 
