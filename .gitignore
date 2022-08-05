@@ -2,3 +2,4 @@ contrib/
 fll.py 
 gs_credentials.json
 .env
+analysis.py
