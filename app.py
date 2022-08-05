@@ -1,5 +1,4 @@
 ## Install Dependencies
-
 import os
 import random
 import pickle
@@ -12,7 +11,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
 
-## CREDENTIALS
+## CREDENTIALS - Custom DEPENDENCIES
 # => Update Google Sheet
 def update_sheet(client):
     sheet = client.open('INSURANCE')
@@ -40,6 +39,11 @@ def get_fvalue(val):
         if val == key:
             return value
 
+### Dictionary/Labels
+sex_map = {'male': 1.0, 'female': 0.0}
+smoker_map = {'yes': 1.0, 'no': 0.0}
+region_map = {'southeast': 3.0, 'southwest': 4.0,
+              'northwest': 2.0, 'northeast': 1.0}
 
 ## Create Page
 ### Title
@@ -76,11 +80,7 @@ if st.checkbox("Information"):
 
     st.markdown(html_support, unsafe_allow_html=True)
 
-### Dictionary/Labels
-sex_map = {'male': 1.0, 'female': 0.0}
-smoker_map = {'yes': 1.0, 'no': 0.0}
-region_map = {'southeast': 3.0, 'southwest': 4.0,
-              'northwest': 2.0, 'northeast': 1.0}
+
 
 ### Prediction Form
 st.sidebar.title("Prediction Form")
@@ -166,6 +166,19 @@ if st.checkbox("I Agree"):
         "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
         "client_x509_cert_url": os.environ["client_x509_cert_url"]
     }
+    #
+    # CREDENTIALS = {
+    #     "type": "service_account",
+    #     "project_id": "gs-database-353116",
+    #     "private_key_id": "9e98c102718109023497fb78795f323ba6e01cbd",
+    #     "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDnVqHpnJHaRaMR\nzYReoGjT0tRFenslmCLHNcfzlleRxZlclBXooHPK2g5Fn4Wx+VGbcJpNigGZ0XMA\nItXZR6rcnYMj7qVp0aHHS/7icqb0Pj0nzogxidS05WUyQZ9fVBj2dqbHF2CXHiOH\n483m7cTgZse55aonwz+BJ+waqe7Fak0fQMVIgNuvc39aQtJ5p1LBy1Xb9+MQhTFL\na5BWaWrhn869Wft7xUgVpIAY5Hr9uz2ssB+DhF1jQwaCvrhNvzQ8PWFiPxW+KUsJ\nhoLzB2YDK5k9M64TfpvZUTzFg+BRiCvYi8ZBkh2NZCfo5YqihKVFvya8os4W3Dd8\ngBHV4U8FAgMBAAECggEALyWgTPicXxQ3Jj8w3YoqoxUCLwDFzUUivV/QFuxKf4p6\ndXw2tNjSkIJ9SyI2QK3TvG6n++qG5f7iRaJT2/r3rwuo+O8/pf/TzUbHNQZx0TBI\nDW9RoWr6Pz3LMIFgRjDg/4Xx+nxgspuxWRYL1icaKzO3O8M7OOxZamyk+VAtuezL\nfhwpTjPbBozoFSJAhw3OVArqsI4R4dUnls/Mym1EYhxrl1twuzhYVwniD2O++XLm\ngb6wwf6cfAV86+80E840fGLqQce4TWOuCi+xO8JlXwu/8OsMkVbVvfW4p0Xk7TAk\nZ9APRlUK2wl3GBUylMqIPbkFL5mVMloWNPGL9ELVZwKBgQD5lomgdjNkkpn9w0cZ\nfS34aeVUDzQHe9Dig/78KYiHrYfdJD7QDNoF47LGxpfcvHjABTaMkwcAS5LVLRBS\nDLqNcQ1Ydkmu4aOQidJ7C1xJNQI97jQJGjPv9KSEevmCdhzlwwBTNYHpoG3gRU3p\nTqTarBjRHWg25HdvleqadL1RQwKBgQDtSBKgy1eNW4HCLkde1uG6N9PwHn8ZMbA+\n8q0I0cmh4r6G9+nhfC5Ncrukp5DpZ2AHDrZoti1y0MC5nvjo5N5tdGwBNBBs3jqC\nmgsdxmvZr0WoE9wl4a4gOr5ShCA8ntdkLT65MwXqkrqI5CFtD21/8OawOvGM25An\natkvKbvWFwKBgQCip55telqn0nqUzCyLye6pk6mmjHnl3qUU2dzUzORzN33xemuM\n/rMfX3Lk5AuYCSPQUBVqq27GnHnGf6XBMxZokyKVYhFG7TnBOnB3S8IK24bogVJc\nFD2AxbhpthLhGMRgYCLYF2jgrnKs072grGX3NGy/6yA9lcrYZ6UKn8W5LQKBgQC5\nTfjmRAcK6PSsHhI0uaGtGR5VvqtJlKlsb368jYFnALoEk6W+J4nNiBWMoCQmc0nm\nGRJRMjzKFsb772+6Ccq/NhWG1w8gxmhxSDX4OdZOOXgvq9rYZqfimZ26uV6nmPDj\nVgZPAc7UA2TTtT15e3vrV8oAxPeRJoMslWApWfFMXwKBgQD5BaagfXRyceyiYSpz\npbEcK8iY0M25y2/ne+dHos+Xz98dsx7HIO1vHQ0WMilUrZvxYgjOK25XaABftDBo\n2rdRSamEed2n0iwcIMj3ZyvmQisDuUH5Pv3u09O9Jl+k0mYIZ+ETRRpiTnvnR4l8\n9LkGEiGm4EllJBzApJI2yu+hwg==\n-----END PRIVATE KEY-----\n",
+    #     "client_email": "dan-700@gs-database-353116.iam.gserviceaccount.com",
+    #     "client_id": "103885161649534649705",
+    #     "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    #     "token_uri": "https://oauth2.googleapis.com/token",
+    #     "auth_provider_x509_cert_url ": "https://www.googleapis.com/oauth2/v1/certs",
+    #     "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/dan-700%40gs-database-353116.iam.gserviceaccount.com"
+    # }
 
     scope = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
 
