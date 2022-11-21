@@ -183,7 +183,7 @@ if app_mode == 'Prediction Page':
         st.warning("[+-] From our model the Charge would a variance of (give or take) 3981.35")
 
     ### Explore
-    st.markdown("===")
+    st.markdown("---")
     st.text("Contributing to our database helps improve our understanding of the subject and enable better predictions of Medical Insurance charges."
             "Click on **I Agree** to give us that chance")
     st.subheader("Choose to share")
@@ -371,7 +371,7 @@ if app_mode == 'Data Dashboard':
         model_name = "model.pk_Charges"
         pickle.dump(model, open(model_name, "wb"))
 
-st.markdown("===")
+st.markdown("---")
 ## Explore
 st.sidebar.subheader("Explore")
 st.sidebar.write("Check out [PORTFOLIO](https://akanimohod19a.github.io/)")
