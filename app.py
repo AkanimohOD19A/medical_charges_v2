@@ -184,7 +184,7 @@ if app_mode == 'Prediction Page':
 
     ### Explore
     st.markdown("---")
-    st.text("Contributing to our database helps improve our understanding of the subject and enable better predictions of Medical Insurance charges."
+    st.markdown("Contributing to our database helps improve our understanding of the subject and enable better predictions of Medical Insurance charges."
             "Click on **I Agree** to give us that chance")
     st.subheader("Choose to share")
     if st.checkbox("I Agree"):
