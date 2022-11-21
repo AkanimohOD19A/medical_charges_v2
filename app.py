@@ -162,7 +162,8 @@ if app_mode == 'Prediction Page':
     model = load_model('model.pk_Charges')
     prediction = model.predict(single_sample)
 
-    pretty_results["p_CHARGES"] = prediction[0]
+    charges = prediction[0]
+    pretty_results["p_CHARGES"] = charges
     prediction_table = pd.DataFrame(pretty_results, index=["Proba"])
 
     # => convert dict to df
@@ -180,7 +181,7 @@ if app_mode == 'Prediction Page':
         '''
         st.caption("Prediction Table")
         st.table(prediction_table)
-        st.warning("[+-] From our model the Charge would a variance of (give or take) 3981.35")
+        st.warning(f"[+-] From our model. You are likely to be charged between {charges - 3981.35} to {charges + 3981.35}")
 
     ### Explore
     st.markdown("---")
