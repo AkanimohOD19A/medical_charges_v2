@@ -181,7 +181,7 @@ if app_mode == 'Prediction Page':
         '''
         st.caption("Prediction Table")
         st.table(prediction_table)
-        st.warning(f"[+-] From our model. You are likely to be charged between {charges - 3981.35} to {charges + 3981.35}")
+        st.warning(f"[+-] From our model. You are likely to be charged between **{round(charges - 3981.35, 2)}** to **{round(charges + 3981.35, 2)}**")
 
     ### Explore
     st.markdown("---")
