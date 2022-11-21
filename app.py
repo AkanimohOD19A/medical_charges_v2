@@ -17,6 +17,8 @@ from sklearn.model_selection import GridSearchCV
 import warnings
 import plotly.graph_objects as go
 
+## Page Config & SEO Indexing
+st.set_page_config(page_title="medical-charges", layout="wide")
 
 ## Update Sheet
 import gspread
@@ -50,9 +52,6 @@ def get_fvalue(val):
     for key, value in feature_dict.items():
         if val == key:
             return value
-
-# PAGE CONFIG
-st.set_page_config(layout='wide')
 
 ### Dictionary/Labels
 sex_map = {'male': 1.0, 'female': 0.0}
@@ -184,6 +183,9 @@ if app_mode == 'Prediction Page':
         st.warning("[+-] From our model the Charge would a variance of (give or take) 3981.35")
 
     ### Explore
+    st.markdown("===")
+    st.text("Contributing to our database helps improve our understanding of the subject and enable better predictions of Medical Insurance charges."
+            "Click on **I Agree** to give us that chance")
     st.subheader("Choose to share")
     if st.checkbox("I Agree"):
         """
@@ -369,6 +371,7 @@ if app_mode == 'Data Dashboard':
         model_name = "model.pk_Charges"
         pickle.dump(model, open(model_name, "wb"))
 
+st.markdown("===")
 ## Explore
 st.sidebar.subheader("Explore")
 st.sidebar.write("Check out [PORTFOLIO](https://akanimohod19a.github.io/)")
