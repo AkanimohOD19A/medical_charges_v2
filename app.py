@@ -18,7 +18,11 @@ import warnings
 import plotly.graph_objects as go
 
 ## Page Config & SEO Indexing
-st.set_page_config(page_title="medical-charges", layout="wide")
+st.set_page_config(
+    page_title="medical-charges",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
 ## Update Sheet
 import gspread
