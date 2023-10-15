@@ -7,4 +7,4 @@ An end-to-end predictive web application that reinforces with each submission.
 Enter the application form with the details that best describes you, and choose to contribute your data,
 a copy would be generated for download.
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://akanimohod19a-medical-charges-v2-app-jw94sv.streamlitapp.com/)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://medical-charges.streamlit.app/)
